@@ -1,0 +1,9 @@
+# Ignorar archivos binarios
+*.exe
+*.dll
+*.so
+*.o
+
+# Ignorar directorios de compilación
+bin/
+build/
