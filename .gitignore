@@ -7,3 +7,4 @@
 # Ignorar directorios de compilación
 bin/
 build/
+.vs/

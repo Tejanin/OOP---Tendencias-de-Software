@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using oopDemo;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,11 +10,14 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<FoodContext>(x => 
-x.UseSqlServer(builder.Configuration.GetConnectionString("oopDB"))
-);
+builder.Services.AddDbContext<FoodContext>(x =>
+{
+    x.UseSqlServer(builder.Configuration.GetConnectionString("oopDB"));
+    x.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+});
 
-builder.Services.AddScoped<IRepository<Product>,Repository<Product> >();
+
+builder.Services.AddScoped<IRepository<Product>, ProductRepository>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
