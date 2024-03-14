@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
-using oopDemo;
+using oopDemo.Data;
+using oopDemo.UnitOfWork;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,10 +11,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<FoodContext>(x => 
-x.UseSqlServer(builder.Configuration.GetConnectionString("oopDB"))
+    x.UseSqlServer(builder.Configuration.GetConnectionString("oopDB"))
 );
-
-builder.Services.AddScoped<IRepository<Product>,Repository<Product> >();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -28,7 +28,8 @@ using (var scope = app.Services.CreateScope())
     var context = scope.ServiceProvider.GetRequiredService<FoodContext>();
     context.Database.Migrate();
 }
-    app.UseHttpsRedirection();
+
+app.UseHttpsRedirection();
 
 app.UseAuthorization();
 

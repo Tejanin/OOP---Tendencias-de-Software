@@ -2,21 +2,17 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace oopDemo
+namespace oopDemo.Models
 {
     public class Product
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int id { get; set; }
-
-        public string name { get; set; }
-
-        public int calories { get; set; }
-
-        public string color { get; set; }
-
-        public string flavor { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public int Calories { get; set; }
+        public string Color { get; set; }
+        public string Flavor { get; set; }
 
     }
 }
